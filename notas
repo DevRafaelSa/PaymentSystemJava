@@ -1,0 +1,6 @@
+explicando a arquitetura
+
+Application - camada front de UI;
+Resource Layer (rest controllers) - camada de recursos (controladores rest) que vão depender de uma camada de serviços;
+Service Layer - que por sua vez dependerão de uma camada de Acessi a dados (repositorios)
+Data repositories
