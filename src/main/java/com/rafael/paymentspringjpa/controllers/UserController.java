@@ -1,4 +1,4 @@
-package com.rafael.paymentspringjpa.resources;
+package com.rafael.paymentspringjpa.controllers;
 
 import com.rafael.paymentspringjpa.entities.User;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 // colocar uma anotação em cima do nome da classe;
 @RestController
 @RequestMapping(value = "/users")//nome pro recurso
-public class UserResource {
+public class UserController {
 
     //metodo que sera um endpoint para acessar os usuarios
     //ResponseEntity(generics) é um tipo de retorno que é específico do Spring para retornar respostas de requisições Web
