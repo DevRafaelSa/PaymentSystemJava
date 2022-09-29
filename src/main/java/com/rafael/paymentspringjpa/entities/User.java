@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 
 //SERIALIZABLE - vc define ela nos seus objetos quando vc quer q esses objetos possam ser
@@ -25,5 +26,12 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    @OneToMany
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 
 }
