@@ -30,8 +30,4 @@ public class User implements Serializable {
     @OneToMany
     private List<Order> orders = new ArrayList<>();
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
 }
