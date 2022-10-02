@@ -1,6 +1,7 @@
 package com.rafael.paymentspringjpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Data @Entity @Table(name = "tb_category")
 public class Category implements Serializable {
 
@@ -18,7 +19,8 @@ public class Category implements Serializable {
     private String name;
 
     //Eu poderia usar o @Transient. Ele impede que o Jpa tente interpretar o relacionamento
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
     public Set<Product> getProducts() {
