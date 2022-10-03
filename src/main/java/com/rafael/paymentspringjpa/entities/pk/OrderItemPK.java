@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable //para informar que eh uma classe auxiliar de chave primaria COMPOSTA
-public class OrdemItemPK implements Serializable {
+public class OrderItemPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -41,7 +41,7 @@ public class OrdemItemPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrdemItemPK that = (OrdemItemPK) o;
+        OrderItemPK that = (OrderItemPK) o;
 
         if (!Objects.equals(order, that.order)) return false;
         return Objects.equals(product, that.product);

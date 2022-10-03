@@ -1,6 +1,7 @@
 package com.rafael.paymentspringjpa.entities;
 
-import com.rafael.paymentspringjpa.entities.pk.OrdemItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rafael.paymentspringjpa.entities.pk.OrderItemPK;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
@@ -11,16 +12,16 @@ import java.util.Objects;
 
 @Entity @Table(name = "tb_order_item")
 @NoArgsConstructor
-public class OrdemItem implements Serializable {
+public class OrderItem implements Serializable {
 
     @EmbeddedId //por se tratar de um id composto preciso colocar o embeddedId
-    private OrdemItemPK id;
+    private OrderItemPK id = new OrderItemPK();//sempre instanciar qdo for id composto
 
     private Integer quantity;
     private Double price;
 
     //meu OrderItem tbm tem um Order e um Produto
-    public OrdemItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order); //atribuindo o Order no OrderItem
         id.setProduct(product); //atribuido o Product no OrderItem
         this.quantity = quantity;
@@ -31,6 +32,7 @@ public class OrdemItem implements Serializable {
         id.setOrder(order);
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
@@ -64,9 +66,9 @@ public class OrdemItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrdemItem ordemItem = (OrdemItem) o;
+        OrderItem orderItem = (OrderItem) o;
 
-        return Objects.equals(id, ordemItem.id);
+        return Objects.equals(id, orderItem.id);
     }
 
     @Override
