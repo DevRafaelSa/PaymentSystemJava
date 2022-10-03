@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rafael.paymentspringjpa.entities.pk.OrderItemPK;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,6 +15,7 @@ public class OrderItem implements Serializable {
     @EmbeddedId //por se tratar de um id composto preciso colocar o embeddedId
     private OrderItemPK id = new OrderItemPK();//sempre instanciar qdo for id composto
 
+    @JsonIgnore
     private Integer quantity;
     private Double price;
 
@@ -41,6 +40,7 @@ public class OrderItem implements Serializable {
         id.setProduct(product);
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
@@ -51,14 +51,6 @@ public class OrderItem implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     @Override
