@@ -1,5 +1,6 @@
 package com.rafael.paymentspringjpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Payment implements Serializable {
     private Instant moment;
 
     @OneToOne
-    @MapsId
+    @MapsId @JsonIgnore
     private Order order;
 
     @Override
