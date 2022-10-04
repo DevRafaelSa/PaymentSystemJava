@@ -40,4 +40,8 @@ public class UserService {
     public User insert(User obj) {
         return repository.save(obj); // o save por padrao ja retorna o objeto salvo
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

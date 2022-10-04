@@ -50,4 +50,10 @@ public class UserController {
 
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) { //para q o Long id sea reconhecido como uma variavel da minha url usei o PathVariable
+        service.delete(id);
+        return ResponseEntity.noContent().build(); //o noContent retorna uma resposta vazia e o codigo http de uma resposta vazia eh o 204
+    }
+
 }
