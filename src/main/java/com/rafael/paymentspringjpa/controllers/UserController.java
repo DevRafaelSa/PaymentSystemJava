@@ -4,11 +4,10 @@ import com.rafael.paymentspringjpa.entities.User;
 import com.rafael.paymentspringjpa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 //para falar q a classe é um recurso web que é implementado por um controlador Rest, a gente vai
@@ -40,6 +39,15 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable Long id) {
         User obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj) { //o @RequestBody é para dizer que o objeto vai chegar no modo Json e esse Json vai ser descerializado para um obj User do Java
+        obj = service.insert(obj);
+        //metodo para gerar um URI q eh necessario para gerar novos recursos e retornar 201 no postman... forma adequada de inserir um recuro no BD
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj); //para retornar um 201
+
     }
 
 }
