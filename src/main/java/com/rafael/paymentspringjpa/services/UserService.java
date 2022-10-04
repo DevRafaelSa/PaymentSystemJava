@@ -37,11 +37,28 @@ public class UserService {
         return obj.get();
     }
 
+    //retorna um usuario q foi inserido
     public User insert(User obj) {
         return repository.save(obj); // o save por padrao ja retorna o objeto salvo
     }
 
+    //n retorna nada, so apaga
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    //retorna um usuario que foi editado/alterado
+    public User update(Long id, User obj) {
+        User entity = repository.getReferenceById(id); //o getReference ele vai instancia um usuario mas ainda sem ir no BD. ele so deixa o objeto monitorado pelo JPA para trabalhar com ele e so depois trabalhar com o BD
+        //...diferentemente do findById q vai no BD e traz o obj pra gente
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    //metodo em q vou ter q atualizar os dados do entity com o que chegou do obj
+    private void updateData(User entity, User obj) {
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
     }
 }

@@ -56,4 +56,10 @@ public class UserController {
         return ResponseEntity.noContent().build(); //o noContent retorna uma resposta vazia e o codigo http de uma resposta vazia eh o 204
     }
 
+    @PutMapping(value = "/{id}") //recebo um id e um objeto contendo os dados para atualizar
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+        obj = service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
 }
