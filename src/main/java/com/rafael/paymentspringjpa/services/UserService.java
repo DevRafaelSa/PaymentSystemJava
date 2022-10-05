@@ -14,8 +14,11 @@ vao ter mtas operacoes em que a camade de servico vai simplesmente repassar para
 
 import com.rafael.paymentspringjpa.entities.User;
 import com.rafael.paymentspringjpa.repositories.UserRepository;
+import com.rafael.paymentspringjpa.services.exceptions.DataBaseException;
 import com.rafael.paymentspringjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,7 +48,13 @@ public class UserService {
 
     //n retorna nada, so apaga
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     //retorna um usuario que foi editado/alterado
