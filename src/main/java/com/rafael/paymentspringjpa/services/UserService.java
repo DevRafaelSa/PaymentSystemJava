@@ -21,6 +21,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,10 +60,15 @@ public class UserService {
 
     //retorna um usuario que foi editado/alterado
     public User update(Long id, User obj) {
-        User entity = repository.getReferenceById(id); //o getReference ele vai instancia um usuario mas ainda sem ir no BD. ele so deixa o objeto monitorado pelo JPA para trabalhar com ele e so depois trabalhar com o BD
-        //...diferentemente do findById q vai no BD e traz o obj pra gente
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id); //o getReference ele vai instancia um usuario mas ainda sem ir no BD. ele so deixa o objeto monitorado pelo JPA para trabalhar com ele e so depois trabalhar com o BD
+            //...diferentemente do findById q vai no BD e traz o obj pra gente
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+
     }
 
     //metodo em q vou ter q atualizar os dados do entity com o que chegou do obj
