@@ -1,6 +1,7 @@
 package com.rafael.paymentspringjpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rafael.paymentspringjpa.entities.enums.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -65,6 +66,7 @@ public class Order {
     public Set<OrderItem> getItems() {
         return items;
     }
+
 
     public Double getTotal() {
         double sum = 0.0;

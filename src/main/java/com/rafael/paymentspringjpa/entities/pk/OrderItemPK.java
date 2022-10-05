@@ -2,6 +2,8 @@ package com.rafael.paymentspringjpa.entities.pk;
 
 import com.rafael.paymentspringjpa.entities.Order;
 import com.rafael.paymentspringjpa.entities.Product;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -9,6 +11,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
+@NoArgsConstructor @AllArgsConstructor
 @Embeddable //para informar que eh uma classe auxiliar de chave primaria COMPOSTA
 public class OrderItemPK implements Serializable {
 

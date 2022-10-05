@@ -14,6 +14,7 @@ vao ter mtas operacoes em que a camade de servico vai simplesmente repassar para
 
 import com.rafael.paymentspringjpa.entities.User;
 import com.rafael.paymentspringjpa.repositories.UserRepository;
+import com.rafael.paymentspringjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class UserService {
     //implementacao do metodo que busca usuarios pelo ID
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     //retorna um usuario q foi inserido

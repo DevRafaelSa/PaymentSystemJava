@@ -19,19 +19,29 @@ public class OrderItem implements Serializable {
     private Integer quantity;
     private Double price;
 
+    /*@ManyToOne
+    @JsonBackReference
+    private Product product = new Product();
+
+    @ManyToOne
+    @JsonBackReference
+    private Order order = new Order();*/
+
     //meu OrderItem tbm tem um Order e um Produto
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        super();
         id.setOrder(order); //atribuindo o Order no OrderItem
-        id.setProduct(product); //atribuido o Product no OrderItem
+        id.setProduct(product); //atribuindo o Product no OrderItem
         this.quantity = quantity;
         this.price = price;
     }
+
+
 
     public void setOrder(Order order) { //to informando um 'order'. o metodo vai no meu id (OrderItemPK) e joga o 'order' la dentro
         id.setOrder(order);
     }
 
-    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }

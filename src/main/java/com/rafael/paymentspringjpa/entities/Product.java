@@ -2,6 +2,7 @@ package com.rafael.paymentspringjpa.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor @AllArgsConstructor
-@Data @Entity
+@Data @Entity @NoArgsConstructor
 @Table(name = "tb_products")
 public class Product implements Serializable {
 
@@ -36,7 +36,8 @@ public class Product implements Serializable {
     private Set<Category> categories = new HashSet<>();
 
     //lembrando que o Set eh para nao admitir repeticoes do mesmo Item
-    @OneToMany(mappedBy = "id.product")
+    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<OrderItem> items = new HashSet<>();
 
     //como ja esto instanciando a colecao acima eu n preciso coloca-la dentro do construtor
