@@ -1,7 +1,6 @@
 package com.rafael.paymentspringjpa.repositories;
 
 import com.rafael.paymentspringjpa.entities.Category;
-import com.rafael.paymentspringjpa.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 //classe usada para salvar os dados
 //como a classeUserRepository esta herdando do JpaRepository, q ja esta registrada como componente do Spring, logo
 //a anotacao Repository eh opcional
+
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 

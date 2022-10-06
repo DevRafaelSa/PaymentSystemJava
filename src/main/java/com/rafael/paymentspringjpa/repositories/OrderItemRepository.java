@@ -1,6 +1,7 @@
 package com.rafael.paymentspringjpa.repositories;
 
 import com.rafael.paymentspringjpa.entities.OrderItem;
+import com.rafael.paymentspringjpa.entities.pk.OrderItemPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Repository;
 //como a classeUserRepository esta herdando do JpaRepository, q ja esta registrada como componente do Spring, logo
 //a anotacao Repository eh opcional
 @Repository
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-
+public interface OrderItemRepository extends JpaRepository<OrderItem, OrderItemPK> {
+    //O ERRO ESTAVA Q EM VEZ DO ORDEMITEMPK ESTAVA LONG
 }

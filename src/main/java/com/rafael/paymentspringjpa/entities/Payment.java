@@ -1,7 +1,6 @@
 package com.rafael.paymentspringjpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
 @Entity @Table(name = "tb_payment")
 public class Payment implements Serializable {
 
@@ -23,18 +22,59 @@ public class Payment implements Serializable {
     @MapsId @JsonIgnore
     private Order order;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Payment(Long id, Instant moment, Order order) {
+        super();
+        this.id = id;
+        this.moment = moment;
+        this.order = order;
+    }
 
-        Payment payment = (Payment) o;
+    public Long getId() {
+        return id;
+    }
 
-        return Objects.equals(id, payment.id);
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Instant getMoment() {
+        return moment;
+    }
+
+    public void setMoment(Instant moment) {
+        this.moment = moment;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Payment other = (Payment) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }

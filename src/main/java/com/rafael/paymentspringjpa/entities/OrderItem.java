@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity @Table(name = "tb_order_item")
 @NoArgsConstructor
@@ -15,17 +14,8 @@ public class OrderItem implements Serializable {
     @EmbeddedId //por se tratar de um id composto preciso colocar o embeddedId
     private OrderItemPK id = new OrderItemPK();//sempre instanciar qdo for id composto
 
-    @JsonIgnore
     private Integer quantity;
     private Double price;
-
-    /*@ManyToOne
-    @JsonBackReference
-    private Product product = new Product();
-
-    @ManyToOne
-    @JsonBackReference
-    private Order order = new Order();*/
 
     //meu OrderItem tbm tem um Order e um Produto
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
@@ -36,22 +26,21 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-
-
-    public void setOrder(Order order) { //to informando um 'order'. o metodo vai no meu id (OrderItemPK) e joga o 'order' la dentro
-        id.setOrder(order);
-    }
-
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
 
-    public void setProduct(Product product) { //to informando um 'product'. o metodo vai no meu id (OrderItemPK) e joga o 'product' la dentro
-        id.setProduct(product);
+    public void setOrder(Order order) {
+        id.setOrder(order);
     }
 
     public Product getProduct() {
         return id.getProduct();
+    }
+
+    public void setProduct(Product product) {
+        id.setProduct(product);
     }
 
     public Integer getQuantity() {
@@ -62,22 +51,40 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public Double getSubTotal() {
         return price * quantity;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderItem orderItem = (OrderItem) o;
-
-        return Objects.equals(id, orderItem.id);
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        OrderItem other = (OrderItem) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }

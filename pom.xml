@@ -14,9 +14,6 @@
     <name>paymentSpringJpa</name>
     <description>paymentSpringJpa</description>
     <properties>
-        <property name="hibernate.dialect">
-            org.hibernate.dialect.MySQL8Dialect
-        </property>
         <java.version>17</java.version>
     </properties>
     <dependencies>
@@ -43,6 +40,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

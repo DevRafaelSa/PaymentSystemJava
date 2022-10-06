@@ -17,7 +17,7 @@ import java.util.Objects;
 //as anotacoes do JPA servem para intruir o JPA como q ele vai converter os objetos para o modelo relacional
 //Lomboc - ja cria os construtores, gets e setters, hashcode e equals
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
 @Entity @Table(name = "tb_user")
 public class User implements Serializable {
 
@@ -33,6 +33,7 @@ public class User implements Serializable {
     private List<Order> orders = new ArrayList<>();
 
     public User(Long id, String name, String email, String phone, String password) {
+        super();
         this.id = id;
         this.name = name;
         this.email = email;
@@ -40,18 +41,73 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Long getId() {
+        return id;
+    }
 
-        User user = (User) o;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        return Objects.equals(id, user.id);
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }

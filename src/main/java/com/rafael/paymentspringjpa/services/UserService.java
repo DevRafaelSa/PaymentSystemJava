@@ -61,7 +61,7 @@ public class UserService {
     //retorna um usuario que foi editado/alterado
     public User update(Long id, User obj) {
         try {
-            User entity = repository.getReferenceById(id); //o getReference ele vai instancia um usuario mas ainda sem ir no BD. ele so deixa o objeto monitorado pelo JPA para trabalhar com ele e so depois trabalhar com o BD
+            User entity = repository.getReferenceById(id); //o getReference ele vai instanciar um usuario mas ainda sem ir no BD. ele so deixa o objeto monitorado pelo JPA para trabalhar com ele e so depois trabalhar com o BD
             //...diferentemente do findById q vai no BD e traz o obj pra gente
             updateData(entity, obj);
             return repository.save(entity);

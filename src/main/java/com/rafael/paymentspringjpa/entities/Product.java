@@ -2,17 +2,24 @@ package com.rafael.paymentspringjpa.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data @Entity @NoArgsConstructor
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity @NoArgsConstructor
 @Table(name = "tb_products")
 public class Product implements Serializable {
 
@@ -36,12 +43,12 @@ public class Product implements Serializable {
     private Set<Category> categories = new HashSet<>();
 
     //lembrando que o Set eh para nao admitir repeticoes do mesmo Item
-    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
     //como ja esto instanciando a colecao acima eu n preciso coloca-la dentro do construtor
     public Product(Long id, String name, String description, Double price, String imgUrl) {
+        super();
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,10 +56,54 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
     @JsonIgnore
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
-        for (OrderItem x : items) { //estou percorrendo minha colecao items
+        for (OrderItem x : items) {
             set.add(x.getOrder());
         }
         return set;
